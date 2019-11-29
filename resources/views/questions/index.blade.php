@@ -5,7 +5,12 @@
     <div class="row">
         <div class="col-md-12 ">
             <div class="panel panel-default">
-                <div class="panel-heading">All questions</div>
+                <div class="panel-heading">
+                    All questions
+                    <div class="pull-right">
+                        <a href="{{route('questions.create')}}" class="btn btn-xs btn-primary">Ask question</a>
+                    </div>
+                </div>
 
                 <div class="panel-body">
                     @foreach($questions as $question)
