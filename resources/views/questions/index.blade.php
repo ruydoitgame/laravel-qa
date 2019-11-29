@@ -13,6 +13,7 @@
                 </div>
 
                 <div class="panel-body">
+                    @include('layouts._message')
                     @foreach($questions as $question)
                         <div class="media">
                             <div class="row">

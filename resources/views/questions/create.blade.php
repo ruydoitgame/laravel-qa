@@ -17,14 +17,14 @@
                         {{csrf_field()}}
                         <div class="form-group">
                             <label for="title">Question title</label>
-                            <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" name="title">
+                            <input type="text" class="form-control {{$errors->has('title') ? 'is-invalid' : ''}}" name="title" value="{{old('title')}}">
                             @if($errors->has('title'))
                                 <div class="invalid-feedback"><strong>{{$errors->first('title')}}</strong></div>
                             @endif
                         </div>
                         <div class="form-group">
                             <label for="body">Expain your question</label>
-                            <textarea name="body" id="body" cols="30" rows="10" class="form-control {{$errors->has('body') ? 'is-invalid' : ''}}"></textarea>
+                            <textarea name="body" id="body" cols="30" rows="10" class="form-control {{$errors->has('body') ? 'is-invalid' : ''}}">{{old('body')}}</textarea>
                             @if($errors->has('body'))
                                 <div class="invalid-feedback"><strong>{{$errors->first('body')}}</strong></div>
                             @endif
