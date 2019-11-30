@@ -28,7 +28,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
         'title' => rtrim($faker->sentence(rand(5,10)), "."),    //bỏ dấu . ở bên phải
         'body' => $faker->paragraph(rand(3,7), true),   //thay vì mãng thì thành chuỗi
         'views' => rand(0, 10),
-        'answers' => rand(0, 10),
+        'answers_count' => rand(0, 10),
         'votes' => rand(-3, 10),
     ];
 });
