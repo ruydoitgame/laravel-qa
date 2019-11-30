@@ -35,12 +35,19 @@
                                     <div class="d-flex align-item-center">
                                         <h3 class="mt-0"><a href="{{ $question->url }}">{{ $question->title }}</a></h3>
                                         <div class="ml-auto">
-                                            <a href="{{route('questions.edit', $question->id)}}" class="btn btn-sm btn-outline-info">Edit</a>
-                                            <form class="form-delete" action="{{route('questions.destroy', $question->id)}}" method="post">
-                                                {{csrf_field()}}
-                                                {{method_field('DELETE')}}
-                                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('Are your sure?')">Del</button>
-                                            </form>
+                                            {{--@if (auth()->user()->can('update-question', $question))--}}
+                                            {{--<a href="{{route('questions.edit', $question->id)}}" class="btn btn-sm btn-outline-info">Edit</a>--}}
+                                            {{--@endif--}}
+                                            @can('update-question', $question)
+                                                <a href="{{route('questions.edit', $question->id)}}" class="btn btn-sm btn-outline-info">Edit</a>
+                                            @endcan
+                                            @can('delete-question', $question)
+                                                <form class="form-delete" action="{{route('questions.destroy', $question->id)}}" method="post">
+                                                    {{csrf_field()}}
+                                                    {{method_field('DELETE')}}
+                                                    <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('Are your sure?')">Del</button>
+                                                </form>
+                                            @endcan
                                         </div>
                                     </div>
 
