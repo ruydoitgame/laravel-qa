@@ -13,7 +13,7 @@
                             <a href="" title="The question is useful" class="vote-up">^</a>
                             <span class="votes-coute">1230</span>
                             <a href="" title="The question is not useful" class="vote-down off">v</a>
-                            <a href="" title="Mark this answer as best answer" class="">Accepted
+                            <a href="" title="Mark this answer as best answer" class="" style="{{$answer->status}}">Accepted
                             </a>
                         </div>
                         <div class="media-body">
