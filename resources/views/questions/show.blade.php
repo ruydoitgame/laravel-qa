@@ -20,8 +20,20 @@
                                 <a href="" title="The question is useful" class="vote-up">^</a>
                                 <span class="votes-coute">1230</span>
                                 <a href="" title="The question is not useful" class="vote-down off">v</a>
-                                <a href="" title="Click to mark as favorite question (Click again to undo" class="favorite">Favorite
+
+                                <a href="" title="Click to mark as favorite question (Click again to undo" class="favorite" style="
+                                    {{auth()->guest() ? 'color: white' : ($question->is_favorited ? 'color: pink': 'color: gray')}}"
+                                   onclick="event.preventDefault();document.getElementById('favorite-question-{{$question->id}}').submit()"
+                                >
+                                    Favorite
+                                    {{$question->favorites_count}}
                                 </a>
+                                <form action="{{route('question.favorite', $question->id)}}" id="favorite-question-{{$question->id}}" method="post">
+                                    {{csrf_field()}}
+                                    @if($question->is_favorited)
+                                        {{method_field('DELETE')}}
+                                    @endif
+                                </form>
                             </div>
                             <div class="media-body">
                                 {!!$question->body_html!!}
