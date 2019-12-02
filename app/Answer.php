@@ -26,12 +26,15 @@ class Answer extends Model
         //created là cho tạo xong save
         static::created(function($answer) {
             $answer->question->increment('answers_count');
-            $answer->question->save();
         });
         //save là update xong save lại
 //        static::saved(function($answer) {
 //            echo 'Answer saved\n';
 //        });
+
+        static::deleted(function($answer) {
+            $answer->question->decrement('answers_count');
+        });
     }
 
     public function getCreatedDateAttribute() {
