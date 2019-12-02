@@ -13,8 +13,19 @@
                             <a href="" title="The question is useful" class="vote-up">^</a>
                             <span class="votes-coute">1230</span>
                             <a href="" title="The question is not useful" class="vote-down off">v</a>
-                            <a href="" title="Mark this answer as best answer" class="" style="{{$answer->status}}">Accepted
-                            </a>
+                            @can('accept', $answer)
+                                <a href="" onclick="event.preventDefault();document.getElementById('accept-answer-{{$answer->id}}').submit()"
+                                    title="Mark this answer as best answer" class="" style="{{$answer->status}}">Best answer
+                                </a>
+                                <form action="{{route('answers.accept', $answer->id)}}" id="accept-answer-{{$answer->id}}" method="post">
+                                    {{csrf_field()}}
+                                </form>
+                            @else
+                                @if ($answer->is_best)
+                                    <a href="" title="Best answer" class="" style="{{$answer->status}}" onclick="event.preventDefault();">Best answer
+                                    </a>
+                                @endif
+                            @endcan
                         </div>
                         <div class="media-body">
                             {!!$answer->body_html !!}
