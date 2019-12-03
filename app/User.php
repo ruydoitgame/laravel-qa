@@ -73,4 +73,20 @@ class User extends Authenticatable
         $question->votes_count = $upVote + $downVote;
         $question->save();
     }
+
+    public function voteAnswer($answer, $vote) {
+        $voteAnswers = $this->voteAnswers();
+        if ($voteAnswers->where('votable_id', $answer->id)->exists()) {
+            $voteAnswers->updateExistingPivot($answer->id, ['vote' => $vote]);
+        }
+        else {
+            $voteAnswers->attach($answer, ['vote' => $vote]);
+        }
+
+        $answer->load('votes');
+        $downVote = $answer->downVotes()->sum('vote');
+        $upVote = $answer->upVotes()->sum('vote');
+        $answer->votes_count = $upVote + $downVote;
+        $answer->save();
+    }
 }

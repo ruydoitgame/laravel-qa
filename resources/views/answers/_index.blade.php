@@ -10,9 +10,27 @@
                 @foreach($answers as $answer)
                     <div class="media">
                         <div class="d-flex flex-column vote-controls mr-3">
-                            <a href="" title="The question is useful" class="vote-up">^</a>
-                            <span class="votes-coute">1230</span>
-                            <a href="" title="The question is not useful" class="vote-down off">v</a>
+                            <a href="" title="The answer is useful" class="vote-up" style="
+                                    {{auth()->guest() ? 'color: white' : ''}}"
+                               onclick="event.preventDefault();document.getElementById('up-vote-answer-{{$answer->id}}').submit()"
+                            >
+                                ^
+                            </a>
+                            <form action="{{route('answer.vote', $answer->id)}}" id="up-vote-answer-{{$answer->id}}" method="post">
+                                {{csrf_field()}}
+                                <input type="hidden" name="vote" value="1">
+                            </form>
+                            <span class="votes-coute">{{$answer->votes_count}}</span>
+                            <a href="" title="The answer is not useful" class="vote-down off" style="
+                                    {{auth()->guest() ? 'color: white' : ''}}"
+                               onclick="event.preventDefault();document.getElementById('up-down-answer-{{$answer->id}}').submit()"
+                            >
+                                v
+                            </a>
+                            <form action="{{route('answer.vote', $answer->id)}}" id="up-down-answer-{{$answer->id}}" method="post">
+                                {{csrf_field()}}
+                                <input type="hidden" name="vote" value="-1">
+                            </form>
                             @can('accept', $answer)
                                 <a href="" onclick="event.preventDefault();document.getElementById('accept-answer-{{$answer->id}}').submit()"
                                     title="Mark this answer as best answer" class="" style="{{$answer->status}}">Best answer
