@@ -16,56 +16,17 @@
                         </div>
                         <hr>
                         <div class="media">
-                            <div class="d-flex flex-column vote-controls">
-                                <a href="" title="The question is useful" class="vote-up" style="
-                                    {{auth()->guest() ? 'color: white' : ''}}"
-                                   onclick="event.preventDefault();document.getElementById('up-vote-question-{{$question->id}}').submit()"
-                                >
-                                    ^
-                                </a>
-                                <form action="{{route('question.vote', $question->id)}}" id="up-vote-question-{{$question->id}}" method="post">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="vote" value="1">
-                                </form>
-                                <span class="votes-coute">{{$question->votes_count}}</span>
-                                <a href="" title="The question is not useful" class="vote-down off" style="
-                                    {{auth()->guest() ? 'color: white' : ''}}"
-                                   onclick="event.preventDefault();document.getElementById('up-down-question-{{$question->id}}').submit()"
-                                >
-                                    v
-                                </a>
-                                <form action="{{route('question.vote', $question->id)}}" id="up-down-question-{{$question->id}}" method="post">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="vote" value="-1">
-                                </form>
-                                <a href="" title="Click to mark as favorite question (Click again to undo" class="favorite" style="
-                                    {{auth()->guest() ? 'color: white' : ($question->is_favorited ? 'color: pink': 'color: gray')}}"
-                                   onclick="event.preventDefault();document.getElementById('favorite-question-{{$question->id}}').submit()"
-                                >
-                                    Favorite
-                                    {{$question->favorites_count}}
-                                </a>
-                                <form action="{{route('question.favorite', $question->id)}}" id="favorite-question-{{$question->id}}" method="post">
-                                    {{csrf_field()}}
-                                    @if($question->is_favorited)
-                                        {{method_field('DELETE')}}
-                                    @endif
-                                </form>
-                            </div>
+                            @include('shared._vote', [
+                                'model' => $question
+                            ])
+
                             <div class="media-body">
                                 {!!$question->body_html!!}
                                 <div class="float-right">
-                                        <span class="text-muted">
-                                            Answered {{ $question->created_date }}
-                                        </span>
-                                    <div class="media mt-2">
-                                        <a href="{{$question->user->url}}" class="pr-2">
-                                            <img src="{{ $question->user->avatar }}" alt="avatar">
-                                        </a>
-                                        <div class="media-body mt-4">
-                                            <a href="{{$question->user->url}}">{{ $question->user->name }}</a>
-                                        </div>
-                                    </div>
+                                    @include('shared._author', [
+                                        'model' => $question,
+                                        'label' => 'Asked',
+                                    ])
                                 </div>
                             </div>
                         </div>
@@ -75,9 +36,9 @@
             </div>
         </div>
         @include('answers._index', [
-                    'answers' => $question->answers,
-                    'answers_count' => $question->answers_count,
-                    ])
+            'answers' => $question->answers,
+            'answers_count' => $question->answers_count,
+        ])
         @include('answers._create')
     </div>
 @endsection

@@ -9,42 +9,9 @@
                 @include('layouts._message')
                 @foreach($answers as $answer)
                     <div class="media">
-                        <div class="d-flex flex-column vote-controls mr-3">
-                            <a href="" title="The answer is useful" class="vote-up" style="
-                                    {{auth()->guest() ? 'color: white' : ''}}"
-                               onclick="event.preventDefault();document.getElementById('up-vote-answer-{{$answer->id}}').submit()"
-                            >
-                                ^
-                            </a>
-                            <form action="{{route('answer.vote', $answer->id)}}" id="up-vote-answer-{{$answer->id}}" method="post">
-                                {{csrf_field()}}
-                                <input type="hidden" name="vote" value="1">
-                            </form>
-                            <span class="votes-coute">{{$answer->votes_count}}</span>
-                            <a href="" title="The answer is not useful" class="vote-down off" style="
-                                    {{auth()->guest() ? 'color: white' : ''}}"
-                               onclick="event.preventDefault();document.getElementById('up-down-answer-{{$answer->id}}').submit()"
-                            >
-                                v
-                            </a>
-                            <form action="{{route('answer.vote', $answer->id)}}" id="up-down-answer-{{$answer->id}}" method="post">
-                                {{csrf_field()}}
-                                <input type="hidden" name="vote" value="-1">
-                            </form>
-                            @can('accept', $answer)
-                                <a href="" onclick="event.preventDefault();document.getElementById('accept-answer-{{$answer->id}}').submit()"
-                                    title="Mark this answer as best answer" class="" style="{{$answer->status}}">Best answer
-                                </a>
-                                <form action="{{route('answers.accept', $answer->id)}}" id="accept-answer-{{$answer->id}}" method="post">
-                                    {{csrf_field()}}
-                                </form>
-                            @else
-                                @if ($answer->is_best)
-                                    <a href="" title="Best answer" class="" style="{{$answer->status}}" onclick="event.preventDefault();">Best answer
-                                    </a>
-                                @endif
-                            @endcan
-                        </div>
+                        @include('shared._vote', [
+                            'model' => $answer
+                        ])
                         <div class="media-body">
                             {!!$answer->body_html !!}
                             <div class="row">
@@ -64,17 +31,11 @@
                                 </div>
                                 <div class="col-4"></div>
                                 <div class="col-4">
-                                        <span class="text-muted">
-                                            Answered {{ $answer->created_date }}
-                                        </span>
-                                    <div class="media mt-2">
-                                        <a href="{{$answer->user->url}}" class="pr-2">
-                                            <img src="{{ $answer->user->avatar }}" alt="avatar">
-                                        </a>
-                                        <div class="media-body mt-4">
-                                            <a href="{{$answer->user->url}}">{{ $answer->user->name }}</a>
-                                        </div>
-                                    </div>
+                                    @include('shared._author', [
+                                        'model' => $answer,
+                                        'label' => 'Answered',
+                                    ])
+
                                 </div>
                             </div>
 
