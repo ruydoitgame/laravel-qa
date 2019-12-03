@@ -17,10 +17,27 @@
                         <hr>
                         <div class="media">
                             <div class="d-flex flex-column vote-controls">
-                                <a href="" title="The question is useful" class="vote-up">^</a>
-                                <span class="votes-coute">1230</span>
-                                <a href="" title="The question is not useful" class="vote-down off">v</a>
-
+                                <a href="" title="The question is useful" class="vote-up" style="
+                                    {{auth()->guest() ? 'color: white' : ''}}"
+                                   onclick="event.preventDefault();document.getElementById('up-vote-question-{{$question->id}}').submit()"
+                                >
+                                    ^
+                                </a>
+                                <form action="{{route('question.vote', $question->id)}}" id="up-vote-question-{{$question->id}}" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="vote" value="1">
+                                </form>
+                                <span class="votes-coute">{{$question->votes_count}}</span>
+                                <a href="" title="The question is not useful" class="vote-down off" style="
+                                    {{auth()->guest() ? 'color: white' : ''}}"
+                                   onclick="event.preventDefault();document.getElementById('up-down-question-{{$question->id}}').submit()"
+                                >
+                                    v
+                                </a>
+                                <form action="{{route('question.vote', $question->id)}}" id="up-down-question-{{$question->id}}" method="post">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="vote" value="-1">
+                                </form>
                                 <a href="" title="Click to mark as favorite question (Click again to undo" class="favorite" style="
                                     {{auth()->guest() ? 'color: white' : ($question->is_favorited ? 'color: pink': 'color: gray')}}"
                                    onclick="event.preventDefault();document.getElementById('favorite-question-{{$question->id}}').submit()"

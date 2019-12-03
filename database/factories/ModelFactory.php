@@ -29,7 +29,7 @@ $factory->define(App\Question::class, function (Faker\Generator $faker) {
         'body' => $faker->paragraph(rand(3,7), true),   //thay vì mãng thì thành chuỗi
         'views' => rand(0, 10),
         //'answers_count' => rand(0, 10),
-        'votes' => rand(-3, 10),
+        //'votes_count' => rand(-3, 10),
     ];
 });
 
