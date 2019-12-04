@@ -18,6 +18,9 @@
         computed: {
             isInvalid() {
                 return this.body.length < 10;
+            },
+            endpoint() {
+                return this.homeRoute + `/questions/${this.questionId}/answers/${this.id }`;
             }
         },
         methods: {
@@ -30,7 +33,7 @@
                 this.editing = false;
             },
             update() {
-                axios.patch(this.homeRoute + `/questions/${this.questionId}/answers/${this.id }`, {
+                axios.patch(this.endpoint, {
                     body: this.body
                 })
                     .then(res => {
@@ -42,6 +45,19 @@
                         alert(err.response.data.body[0]);
                     });
             },
+            destroy() {
+                if (confirm('Are you sure?')) {
+                    axios.delete(this.endpoint, {})
+                        .then(res => {
+                            $(this.$el).fadeOut(500, () => {
+                                alert(res.data.message);
+                            })
+                        })
+                        .catch(err => {
+                            alert(err.response.data.body[0]);
+                        });
+                }
+            }
         }
     }
 </script>
