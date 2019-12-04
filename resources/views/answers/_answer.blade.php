@@ -21,11 +21,11 @@
             </div>
             <div class="col-4"></div>
             <div class="col-4">
-                @include('shared._author', [
-                    'model' => $answer,
-                    'label' => 'Answered',
-                ])
-
+                {{--@include('shared._author', [--}}
+                    {{--'model' => $answer,--}}
+                    {{--'label' => 'Answered',--}}
+                {{--])--}}
+                <user-info label="Answered" :model="{{$answer}}"></user-info>
             </div>
         </div>
 
