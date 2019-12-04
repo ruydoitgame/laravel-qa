@@ -11685,3 +11685,7 @@ form.form-delete {
   display: inline;
 }
 
+[v-cloak] {
+  display: none;
+}
+

@@ -90,6 +90,14 @@ class AnswersController extends Controller
         $answer->update([
             'body' => $request->body,
         ]);
+
+        //return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has been updated successfully');
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Your answer has been updated successfully',
+                'body_html' => $answer->body_html,
+            ]);
+        }
         return redirect()->route('questions.show', $question->slug)->with('success', 'Your answer has been updated successfully');
     }
 
