@@ -21,7 +21,7 @@
                             ])
 
                             <div class="media-body">
-                                {!!$question->body_html!!}
+                                {!!strip_tags($question->body_html)!!}
                                 <div class="float-right">
                                     @include('shared._author', [
                                         'model' => $question,
