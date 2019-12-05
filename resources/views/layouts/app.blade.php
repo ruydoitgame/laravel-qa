@@ -64,7 +64,12 @@
         @yield('content')
     </main>
 </div>
-
+    <script>
+        window.Auth = {!! json_encode([
+            'signedIn' => Auth::check(),
+            'user' => Auth::user(),
+        ])!!};
+    </script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

@@ -36,10 +36,12 @@
         <input type="hidden" name="vote" value="-1">
     </form>
     @if ($model instanceof \App\Question)
-        @include('shared._favorite', [
-           'model' => $model,
-           'name' => $name,
-       ])
+        <favorite :question="{{$model}}" name="{{$name}}" route="{{route($name.'.favorite', $model->id)}}"></favorite>
+        {{--<favorite :model="{{$model}}" :name="{{$name}}"></favorite>--}}
+        {{--@include('shared._favorite', [--}}
+           {{--'model' => $model,--}}
+           {{--'name' => $name,--}}
+       {{--])--}}
     @elseif ($model instanceof \App\Answer)
         @include('shared._accept', [
            'model' => $model,
