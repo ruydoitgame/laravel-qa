@@ -22,9 +22,10 @@
             mystyles () {
                 return !this.signedIn ? 'color: white' : (this.isFavorited ? 'color: pink' : 'color: gray');
             },
-            signedIn() {
-                return window.Auth.signedIn;
-            }
+            //Đã khai báo trong proptotye authorize.js
+            // signedIn() {
+            //     return window.Auth.signedIn;
+            // }
         },
         methods: {
             toggle() {
