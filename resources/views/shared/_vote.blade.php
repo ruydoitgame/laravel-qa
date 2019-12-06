@@ -43,10 +43,11 @@
            {{--'name' => $name,--}}
        {{--])--}}
     @elseif ($model instanceof \App\Answer)
-        @include('shared._accept', [
-           'model' => $model,
-           'name' => $name,
-       ])
+        <accept :answer="{{$model}}" name="{{$name}}" route="{{route($name.'.accept', $model->id)}}"></accept>
+        {{--@include('shared._accept', [--}}
+           {{--'model' => $model,--}}
+           {{--'name' => $name,--}}
+       {{--])--}}
     @endif
 
 </div>
