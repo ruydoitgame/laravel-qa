@@ -13,6 +13,12 @@ class VotAnswersController extends Controller
 
     public function vote(Answer $answer, Request $request) {
         auth()->user()->voteAnswer($answer, (int)$request->vote);
+        if ($request->expectsJson()) {
+            return response()->json([
+                'message' => 'Thanks for feedback',
+                'voteCount' => $answer->votes_count,
+            ]);
+        }
         return back();
     }
 }

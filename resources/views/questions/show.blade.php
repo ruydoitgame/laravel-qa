@@ -16,9 +16,12 @@
                         </div>
                         <hr>
                         <div class="media">
-                            @include('shared._vote', [
-                                'model' => $question
-                            ])
+                            <vote :name="'question'" :model="{{$question}}"
+                                  :route="'{{route('question.favorite', $question->id)}}'"
+                                  voteroute="{{route('question.vote', $question->id)}}"></vote>
+                            {{--@include('shared._vote', [--}}
+                                {{--'model' => $question--}}
+                            {{--])--}}
 
                             <div class="media-body">
                                 {!!strip_tags($question->body_html)!!}

@@ -1,9 +1,12 @@
 <answer :answer="{{$answer}}" home-route="{{ route('/') }}" inline-template>
     <div>
         <div class="media">
-            @include('shared._vote', [
-                'model' => $answer
-            ])
+            <vote name="answer" :model="{{$answer}}"
+                  route="{{route('answer.accept', $answer->id)}}"
+                  voteroute="{{route('answer.vote', $answer->id)}}"></vote>
+            {{--@include('shared._vote', [--}}
+                {{--'model' => $answer--}}
+            {{--])--}}
             <div class="media-body">
                 <form v-if="editing" @submit.prevent="update">
                     <div class="form-group">
