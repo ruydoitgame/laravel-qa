@@ -68,6 +68,7 @@
         window.Auth = {!! json_encode([
             'signedIn' => Auth::check(),
             'user' => Auth::user(),
+            'pageRoute' => route("/"),
         ])!!};
     </script>
     <!-- Scripts -->

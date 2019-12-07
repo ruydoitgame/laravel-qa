@@ -1,10 +1,41 @@
 <template>
-
+    <div>
+        <div class="media">
+            <vote name="answer" :model="answer"></vote>
+            <div class="media-body">
+                <form v-if="editing" @submit.prevent="update">
+                    <div class="form-group">
+                        <textarea name="" id="" cols="30" rows="5" class="form-control" v-model="body" required></textarea>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary" :disabled="isInvalid">Update</button>
+                    <button @click="cancel" class="btn btn-sm btn-outline-secondary" type="button">Cancel</button>
+                </form>
+                <div v-else>
+                    <div v-html="bodyHtml"></div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="ml-auto">
+                                <a v-if="authorize('modify', answer)"
+                                   @click.prevent="edit" class="btn btn-sm btn-outline-info">Edit</a>
+                                <button v-if="authorize('modify', answer)" class="btn btn-sm btn-outline-danger"
+                                        @click="destroy">Del</button>
+                            </div>
+                        </div>
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            <user-info label="Answered" :model="answer"></user-info>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+    </div>
 </template>
 
 <script>
     export default {
-        props: ['answer', 'homeRoute'],
+        props: ['answer'],
         data() {
             return {
                 editing: false,
@@ -20,7 +51,7 @@
                 return this.body.length < 10;
             },
             endpoint() {
-                return this.homeRoute + `/questions/${this.questionId}/answers/${this.id }`;
+                return this.pageRoute + `/questions/${this.questionId}/answers/${this.id }`;
             }
         },
         methods: {

@@ -16,7 +16,7 @@
 
 <script>
     export default {
-        props: ['answer', 'name', 'route'],
+        props: ['answer', 'name'],
         data () {
             return {
                 isBest: this.answer.is_best,
@@ -32,7 +32,10 @@
             },
             myStyle() {
                 return this.isBest ? 'color: red' : '';
-            }
+            },
+            route() {
+                return this.pageRoute + `/answers/${this.answer.id}/accept`;
+            },
         },
         methods: {
             accept() {

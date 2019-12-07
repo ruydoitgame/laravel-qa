@@ -16,9 +16,7 @@
                         </div>
                         <hr>
                         <div class="media">
-                            <vote :name="'question'" :model="{{$question}}"
-                                  :route="'{{route('question.favorite', $question->id)}}'"
-                                  voteroute="{{route('question.vote', $question->id)}}"></vote>
+                            <vote :name="'question'" :model="{{$question}}"></vote>
                             {{--@include('shared._vote', [--}}
                                 {{--'model' => $question--}}
                             {{--])--}}
@@ -39,10 +37,11 @@
                 </div>
             </div>
         </div>
-        @include('answers._index', [
-            'answers' => $question->answers,
-            'answers_count' => $question->answers_count,
-        ])
+        <answers :answers="{{$question->answers}}" :count="{{$question->answers_count}}"/>
+        {{--@include('answers._index', [--}}
+            {{--'answers' => $question->answers,--}}
+            {{--'answers_count' => $question->answers_count,--}}
+        {{--])--}}
         @include('answers._create')
     </div>
 @endsection

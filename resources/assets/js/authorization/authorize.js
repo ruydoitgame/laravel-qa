@@ -12,5 +12,6 @@ export default {
         };
 
         Vue.prototype.signedIn = window.Auth.signedIn;
+        Vue.prototype.pageRoute = window.Auth.pageRoute;
     }
 }

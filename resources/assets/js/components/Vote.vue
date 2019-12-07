@@ -16,8 +16,8 @@
             v
         </a>
 
-        <favorite v-if="name === 'question'" :question="model" name="name" :route="route"></favorite>
-        <accept v-if="name === 'answer'" :answer="model" name="name" :route="route"></accept>
+        <favorite v-if="name === 'question'" :question="model" name="name"></favorite>
+        <accept v-if="name === 'answer'" :answer="model" name="name"></accept>
     </div>
 </template>
 
@@ -25,7 +25,7 @@
     import Favorite from './Favorite.vue';
     import Accept from './Accept.vue';
     export default {
-        props: ['name', 'model', 'route', 'voteroute'],
+        props: ['name', 'model'],
         data () {
             return {
                 count: this.model.votes_count,
@@ -35,6 +35,9 @@
             myStyle() {
                 return this.signedIn ? '' : 'color: white';
             },
+            voteRoute() {
+                return this.pageRoute + `/${this.name}s/${this.model.id}/vote`;
+            }
         },
         methods: {
             title(voteType) {
@@ -52,12 +55,12 @@
                 this._vote(-1);
             },
             _vote(vote) {
-                if (!this.signIn)
+                if (!this.signedIn)
                 {
                     this.$toast.warning(`Please login to vote this ${this.name}`, 'Warning', {timeout: 3000, position: 'bottomLeft'});
                     return;
                 }
-                axios.post(this.voteroute, {
+                axios.post(this.voteRoute, {
                     vote: vote
                     //hoặc chỉ cần ghi
                     //vote

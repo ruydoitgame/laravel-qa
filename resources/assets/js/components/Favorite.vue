@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        props: ['question', 'name', 'route'],
+        props: ['question', 'name'],
         data() {
             return {
                 isFavorited: this.question.is_favorited,
@@ -22,6 +22,9 @@
             mystyles () {
                 return !this.signedIn ? 'color: white' : (this.isFavorited ? 'color: pink' : 'color: gray');
             },
+            route() {
+                return this.pageRoute + `/questions/${this.question.id}/favorites`;
+            }
             //Đã khai báo trong proptotye authorize.js
             // signedIn() {
             //     return window.Auth.signedIn;
