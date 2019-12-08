@@ -13,9 +13,9 @@ class AnswersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Question $question)
     {
-        //
+        return $question->answers()->with('user')->simplePaginate(3);
     }
 
     /**

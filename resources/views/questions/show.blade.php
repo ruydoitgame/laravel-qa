@@ -37,11 +37,12 @@
                 </div>
             </div>
         </div>
-        <answers :answers="{{$question->answers}}" :count="{{$question->answers_count}}"/>
+
+        <answers :question="{{$question}}"></answers>
+        @include('answers._create')
         {{--@include('answers._index', [--}}
             {{--'answers' => $question->answers,--}}
             {{--'answers_count' => $question->answers_count,--}}
         {{--])--}}
-        @include('answers._create')
     </div>
 @endsection
