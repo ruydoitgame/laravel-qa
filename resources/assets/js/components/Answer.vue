@@ -91,10 +91,13 @@
                         ['<button><b>YES</b></button>', (instance, toast) => {
                             axios.delete(this.endpoint, {})
                                 .then(res => {
-                                    $(this.$el).fadeOut(500, () => {
-                                        this.$toast.success(res.data.message, 'Success', {timeout: 3000});
-                                        //alert(res.data.message);
-                                    })
+                                    // $(this.$el).fadeOut(500, () => {
+                                    //     this.$toast.success(res.data.message, 'Success', {timeout: 3000});
+                                    //     //alert(res.data.message);
+                                    // })
+
+                                    //hàm gọi method để lắng nghe từ component cha
+                                    this.$emit('deleted');
                                 })
                                 .catch(err => {
                                     alert(err.response.data.body[0]);

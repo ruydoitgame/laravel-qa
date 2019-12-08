@@ -7,9 +7,10 @@
                         <h2>{{title}}</h2>
                     </div>
                     <hr>
-                    <answer v-for="answer in answers"
+                    <answer v-for="(answer, index) in answers"
                             :answer="answer"
-                            :key="answer.id">
+                            :key="answer.id"
+                            @deleted="remove(index)">
                     </answer>
                     <div class="text-center mt-3" v-if="nextUrl">
                         <button @click="fetch(nextUrl)" class="btn-outline-secondary btn">Load more answers</button>
@@ -65,6 +66,10 @@
                     .catch(err => {
                         this.$toast.error(err.response.data.body[0], 'Error', {timeout: 3000});
                     });
+            },
+            remove(index) {
+                this.answers.splice(index, 1);
+                this.count--;
             }
         }
     }
